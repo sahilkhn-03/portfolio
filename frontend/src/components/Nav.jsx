@@ -47,7 +47,7 @@ export default function Nav() {
         }`}
         style={{
           boxShadow: scrolled
-            ? "0 20px 50px -20px rgba(0,0,0,0.6), 0 8px 22px -10px rgba(79,140,255,0.18)"
+            ? "0 20px 50px -20px rgba(0,0,0,0.6), 0 8px 22px -10px rgba(59,130,246,0.22)"
             : "0 10px 30px -20px rgba(0,0,0,0.4)",
         }}
       >
@@ -60,8 +60,8 @@ export default function Nav() {
             className="w-6 h-6 rounded-md flex items-center justify-center"
             style={{
               background:
-                "linear-gradient(135deg, rgba(79,140,255,0.6), rgba(167,139,250,0.5))",
-              boxShadow: "0 6px 14px -4px rgba(79,140,255,0.55)",
+                "linear-gradient(135deg, rgba(59,130,246,0.7), rgba(96,165,250,0.5))",
+              boxShadow: "0 6px 14px -4px rgba(59,130,246,0.6)",
             }}
           >
             <span className="text-[11px] font-bold text-white">S</span>
@@ -69,7 +69,7 @@ export default function Nav() {
           <span className="font-display text-[14px] tracking-tight text-white">
             Sahil
           </span>
-          <span className="hidden md:inline font-mono text-[10px] text-[#7dd3fc]/80 ml-1">
+          <span className="hidden md:inline font-mono text-[10px] text-[#93c5fd]/80 ml-1">
             ai · eng
           </span>
         </button>

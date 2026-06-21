@@ -46,9 +46,9 @@ export default function Background() {
     };
 
     const colorOf = (hue) => {
-      if (hue === "violet") return "167, 139, 250";
-      if (hue === "ice") return "125, 211, 252";
-      return "79, 140, 255";
+      if (hue === "violet") return "129, 140, 248";
+      if (hue === "ice") return "147, 197, 253";
+      return "59, 130, 246";
     };
 
     const tick = () => {
@@ -103,7 +103,7 @@ export default function Background() {
   return (
     <>
       {/* Solid base + radial glow */}
-      <div className="fixed inset-0 -z-30" style={{ background: "#080b14" }} />
+      <div className="fixed inset-0 -z-30" style={{ background: "#0b1120" }} />
       <div className="fixed inset-0 -z-20 bg-radial-glow" />
       <div className="fixed inset-0 -z-20 bg-grid" />
       <div className="fixed inset-0 -z-10 noise pointer-events-none" />

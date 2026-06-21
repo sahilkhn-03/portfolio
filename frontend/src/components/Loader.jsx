@@ -8,7 +8,7 @@ export default function Loader() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center"
-      style={{ background: "#080b14" }}
+      style={{ background: "#0b1120" }}
     >
       <div className="absolute inset-0 bg-radial-glow opacity-50" />
       <div className="absolute inset-0 bg-grid opacity-40" />
@@ -24,10 +24,10 @@ export default function Loader() {
             className="w-14 h-14 rounded-2xl flex items-center justify-center"
             style={{
               background:
-                "linear-gradient(135deg, rgba(79,140,255,0.18), rgba(167,139,250,0.12))",
+                "linear-gradient(135deg, rgba(59,130,246,0.22), rgba(96,165,250,0.14))",
               border: "1px solid rgba(255,255,255,0.1)",
               boxShadow:
-                "0 20px 50px -20px rgba(79,140,255,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
+                "0 20px 50px -20px rgba(59,130,246,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
             }}
           >
             <motion.div
@@ -36,7 +36,7 @@ export default function Loader() {
               className="w-7 h-7 rounded-lg"
               style={{
                 background:
-                  "conic-gradient(from 0deg, #4f8cff, #7dd3fc, #a78bfa, #4f8cff)",
+                  "conic-gradient(from 0deg, #3b82f6, #60a5fa, #93c5fd, #3b82f6)",
                 maskImage:
                   "radial-gradient(circle, transparent 36%, #000 38%)",
                 WebkitMaskImage:
@@ -46,7 +46,7 @@ export default function Loader() {
           </div>
         </div>
 
-        <div className="mt-6 font-mono text-[11px] tracking-[0.28em] uppercase text-[#7dd3fc]">
+        <div className="mt-6 font-mono text-[11px] tracking-[0.28em] uppercase text-[#93c5fd]">
           Initialising
         </div>
         <div className="mt-3 loader-bar" />

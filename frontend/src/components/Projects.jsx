@@ -5,43 +5,35 @@ const PROJECTS = [
   {
     id: "hackquest25",
     no: "01",
-    title: "HackQuest25",
-    badge: "1st place · 24-hr hackathon",
-    summary: "Intelligent public alert system — real-time, ML-driven safety",
-    description:
-      "Real-time emergency alert platform using ML-powered announcement detection, geofencing, WebSockets and haptic feedback to deliver location-aware public safety alerts.",
-    tech: ["React", "Node.js", "Express", "Supabase", "WebSockets", "Firebase", "Google Cloud Run"],
+    title: "HackQuest25 — Public Alert System",
+    badge: "HackQuest 2025 winning project",
+    summary:
+      "A real-time emergency alert platform using ML-powered announcement detection, geofencing, WebSockets, and haptic feedback to deliver location-aware public safety alerts.",
+    tech: ["Node.js", "Express", "Supabase", "WebSockets", "JavaScript"],
     github: "https://github.com/sahilkhn-03/HackQuest25",
     highlights: [
-      "Real-time emergency notifications",
-      "ML-powered announcement detection",
-      "Geofencing-based alert delivery",
-      "WebSocket live communication",
-      "Haptic feedback alerts",
-      "Progressive Web App support",
-      "QR onboarding workflow",
-      "Cross-platform accessibility",
+      "Real-time alert delivery",
+      "Geofencing support",
+      "WebSocket communication",
+      "ML announcement detection",
+      "Haptic emergency notifications",
     ],
   },
   {
     id: "orchestratex",
     no: "02",
     title: "OrchestrateX",
-    badge: "Multi-model LLM orchestration",
-    summary: "Multi-Model AI orchestration platform",
-    description:
-      "Advanced orchestration system that dynamically selects the best LLM and improves quality through multi-model collaboration, critique, evaluation and refinement workflows.",
-    tech: ["Python", "FastAPI", "LLMs", "AI Agents", "Prompt Engineering", "React"],
-    github: "https://github.com/sahilkhn-03",
+    badge: "Multi-model AI orchestration",
+    summary:
+      "Advanced multi-model AI orchestration platform that routes prompts to the most suitable LLM and improves response quality through automated critique, evaluation, and refinement workflows.",
+    tech: ["Python", "LLMs", "Prompt Engineering", "AI Agents"],
+    github: "https://github.com/sahilkhn-03/OrchestrateX",
     highlights: [
-      "Dynamic model selection",
-      "Multi-model collaboration",
-      "Critique-and-refinement loops",
-      "Intelligent response evaluation",
-      "Real-time orchestration engine",
-      "Quality scoring workflows",
-      "Agent-based reasoning pipelines",
-      "Modern AI control dashboard",
+      "Multi-model routing",
+      "Response refinement",
+      "Model collaboration",
+      "Evaluation pipelines",
+      "Intelligent orchestration",
     ],
   },
   {
@@ -49,62 +41,50 @@ const PROJECTS = [
     no: "03",
     title: "RAG AI Agent",
     badge: "Retrieval · Whisper · Embeddings",
-    summary: "Educational video intelligence system",
-    description:
-      "Retrieval-Augmented Generation platform that converts educational video content into a searchable AI learning assistant with transcript extraction, semantic search and timestamp-aware responses.",
-    tech: ["Python", "Flask", "React", "Whisper", "Sentence Transformers", "Scikit-Learn", "NumPy"],
-    github: "https://github.com/sahilkhn-03",
+    summary:
+      "Retrieval-Augmented Generation platform that transforms educational video content into an intelligent learning assistant using semantic search, embeddings, transcript processing, and timestamp-aware responses.",
+    tech: ["Python", "Flask", "React", "Whisper", "Sentence Transformers", "Scikit-Learn"],
+    github: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
     highlights: [
-      "Whisper transcription pipeline",
-      "Semantic search across transcripts",
-      "Timestamp-aware retrieval",
-      "Context-grounded responses",
-      "Educational content indexing",
-      "Instant question answering",
-      "Vector embedding search",
-      "Responsive AI interface",
+      "Whisper transcript extraction",
+      "Semantic search",
+      "Timestamp retrieval",
+      "Embedding-based retrieval",
+      "LLM-powered answers",
     ],
   },
   {
     id: "slm-debug",
     no: "04",
-    title: "Lightweight Code Debugging SLM",
-    badge: "Distillation · efficient inference",
-    summary: "Efficient code debugging & simplification system",
-    description:
-      "Research-focused lightweight language model with a BDH-inspired architecture for debugging, simplification, retrieval-grounded reasoning and reliability-aware code generation.",
-    tech: ["Python", "PyTorch", "Transformers", "Knowledge Distillation", "RAG", "NLP"],
-    github: "https://github.com/sahilkhn-03",
+    title: "Efficient Code Debugging & Simplification",
+    badge: "Research · Lightweight LM",
+    summary:
+      "Research-oriented lightweight language model project inspired by BDH architecture focused on code debugging, simplification, retrieval grounding, and reliability-focused generation.",
+    tech: ["Python", "PyTorch", "Transformers", "NLP", "Knowledge Distillation"],
+    github: "https://github.com/sahilkhn-03/Mini-Project",
     highlights: [
-      "Lightweight language model architecture",
-      "Code debugging workflows",
-      "Code simplification engine",
-      "Retrieval-based intent grounding",
-      "Multi-layer verification pipeline",
-      "Reliability-focused generation",
-      "Hallucination reduction techniques",
-      "Efficient inference design",
+      "Lightweight architecture",
+      "Code debugging",
+      "Code simplification",
+      "Retrieval grounding",
+      "Reliability verification pipeline",
     ],
   },
   {
     id: "phishing-ml",
     no: "05",
-    title: "Network Security ML Pipeline",
-    badge: "Production-grade ML pipeline",
-    summary: "Phishing website detection system",
-    description:
-      "End-to-end machine learning pipeline for phishing website detection with automated ingestion, validation, transformation, experiment tracking, model management and API-based prediction.",
-    tech: ["Python", "Scikit-Learn", "Pandas", "NumPy", "FastAPI", "MLflow", "MongoDB"],
-    github: "https://github.com/sahilkhn-03",
+    title: "Phishing Website Detection",
+    badge: "End-to-end ML pipeline",
+    summary:
+      "End-to-end machine learning pipeline for phishing website detection using automated preprocessing, validation, feature engineering, model training, and deployment workflows.",
+    tech: ["Python", "Scikit-Learn", "Pandas", "NumPy", "MongoDB"],
+    github: "https://github.com/sahilkhn-03/networksecurity",
     highlights: [
-      "Automated data ingestion",
-      "Data validation workflows",
-      "Feature engineering pipeline",
-      "Experiment tracking",
-      "Model version management",
-      "Data drift monitoring",
-      "API-based prediction service",
-      "Production-oriented ML architecture",
+      "Automated data pipeline",
+      "Validation workflows",
+      "Feature engineering",
+      "ML model training",
+      "FastAPI deployment",
     ],
   },
 ];
@@ -114,14 +94,14 @@ function ProjectRow({ p, index }) {
   return (
     <motion.li
       data-testid={`project-card-${p.id}`}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5% 0px" }}
-      transition={{ duration: 0.6, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
       className="border-t border-white/[0.07] group"
     >
-      <div className="py-7 sm:py-8 grid grid-cols-12 gap-4 sm:gap-8 items-start">
-        <div className="col-span-2 sm:col-span-1 font-mono text-[11px] tracking-[0.18em] text-[#5e6776] pt-1.5">
+      <div className="py-5 sm:py-6 grid grid-cols-12 gap-3 sm:gap-6 items-start">
+        <div className="col-span-2 sm:col-span-1 font-mono text-[11px] tracking-[0.18em] text-[#5e6776] pt-1">
           P · {p.no}
         </div>
 
@@ -129,17 +109,19 @@ function ProjectRow({ p, index }) {
           <button
             data-testid={`project-expand-${p.id}`}
             onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls={`project-details-${p.id}`}
             className="text-left w-full"
           >
-            <h3 className="font-display text-[clamp(1.4rem,2.6vw,1.95rem)] tracking-tight text-white leading-tight transition-colors group-hover:text-[#cfd6e2]">
+            <h3 className="font-display text-[clamp(1.2rem,2.2vw,1.6rem)] tracking-tight text-white leading-tight transition-colors group-hover:text-[#cfd6e2]">
               {p.title}
             </h3>
             {p.badge && (
-              <div className="mt-1.5 text-[12px] font-mono tracking-[0.04em] text-[#7dafff]">
+              <div className="mt-1 text-[11.5px] font-mono tracking-[0.04em] text-[#60a5fa]">
                 {p.badge}
               </div>
             )}
-            <div className="mt-2 text-[14.5px] text-[#9aa3b2] max-w-2xl">
+            <div className="mt-1.5 text-[13.5px] text-[#9aa3b2] max-w-2xl leading-relaxed">
               {p.summary}
             </div>
           </button>
@@ -164,8 +146,8 @@ function ProjectRow({ p, index }) {
             aria-expanded={open}
             aria-controls={`project-details-${p.id}`}
             data-testid={`project-toggle-${p.id}`}
-            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-[#4f8cff]/40 transition-all"
-            style={{ color: "#7dafff" }}
+            className="w-9 h-9 rounded-full flex items-center justify-center bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-[#3b82f6]/40 transition-all"
+            style={{ color: "#60a5fa" }}
           >
             <motion.svg
               animate={{ rotate: open ? 45 : 0 }}
@@ -197,26 +179,23 @@ function ProjectRow({ p, index }) {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-8 grid grid-cols-12 gap-4 sm:gap-8">
+            <div className="pb-6 grid grid-cols-12 gap-3 sm:gap-6">
               <div className="hidden sm:block col-span-1" />
               <div className="col-span-12 sm:col-span-11">
-                <p className="text-[14.5px] leading-[1.75] text-[#a8b0bf] max-w-2xl">
-                  {p.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1.5">
                   {p.tech.map((t) => (
                     <span key={t} className="chip">
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[#7dd3fc] mb-2.5">
+                <div className="mt-5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#60a5fa] mb-2">
                   Key Features
                 </div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13.5px] text-[#b3bccc] max-w-3xl">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13px] text-[#b3bccc] max-w-3xl">
                   {p.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-2.5">
-                      <span className="mt-1.5 w-1 h-1 rounded-full shrink-0 bg-[#7dafff]" />
+                      <span className="mt-1.5 w-1 h-1 rounded-full shrink-0 bg-[#60a5fa]" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -235,10 +214,10 @@ export default function Projects() {
     <section
       id="projects"
       data-testid="projects-section"
-      className="relative py-28 sm:py-36"
+      className="relative py-20 sm:py-24"
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
           <div className="md:col-span-3">
             <div className="section-tag">
               <span className="dot" />
@@ -250,8 +229,8 @@ export default function Projects() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.04] tracking-[-0.025em]"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-[clamp(1.85rem,4.2vw,2.9rem)] leading-[1.05] tracking-[-0.025em]"
             >
               <span className="text-grad-primary">Things I've </span>
               <span className="font-serif-italic text-grad-blue">built</span>
@@ -260,7 +239,7 @@ export default function Projects() {
           </div>
         </div>
 
-        <ul className="mt-14 border-b border-white/[0.07]">
+        <ul className="mt-10 border-b border-white/[0.07]">
           {PROJECTS.map((p, i) => (
             <ProjectRow p={p} index={i} key={p.id} />
           ))}

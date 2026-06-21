@@ -40,10 +40,10 @@ export default function Contact() {
     <section
       id="contact"
       data-testid="contact-section"
-      className="relative py-28 sm:py-36"
+      className="relative py-20 sm:py-24"
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
           <div className="md:col-span-3">
             <div className="section-tag">
               <span className="dot" />
@@ -56,8 +56,8 @@ export default function Contact() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-[clamp(2rem,4.8vw,3.6rem)] leading-[1.04] tracking-[-0.025em]"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-[clamp(1.9rem,4.4vw,3rem)] leading-[1.05] tracking-[-0.025em]"
             >
               <span className="text-grad-primary">Let's build </span>
               <span className="font-serif-italic text-grad-blue">something</span>
@@ -65,18 +65,18 @@ export default function Contact() {
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mt-7 text-[16px] leading-[1.75] text-[#a8b0bf] max-w-2xl"
+              transition={{ duration: 0.6, delay: 0.08 }}
+              className="mt-5 text-[15px] leading-[1.7] text-[#a8b0bf] max-w-2xl"
             >
               Open to internships, collaborations, and research. If you have an
               interesting problem — let's talk.
             </motion.p>
 
-            <div className="mt-3 text-[13px] text-[#7e8696] font-mono">
-              India · Remote-friendly
+            <div className="mt-2.5 text-[12.5px] text-[#7e8696] font-mono">
+              India • Remote Friendly
             </div>
 
             {/* Terminal block */}
@@ -86,7 +86,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15 }}
               data-testid="terminal-block"
-              className="mt-10 glass ring-edge rounded-2xl overflow-hidden"
+              className="mt-8 glass ring-edge rounded-2xl overflow-hidden"
             >
               <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.06] bg-white/[0.015]">
                 <div className="flex items-center gap-1.5">
@@ -103,13 +103,13 @@ export default function Contact() {
                 {lines.map((l, i) =>
                   l.cmd ? (
                     <div key={i} className="text-[#cfd6e2]">
-                      <span className="text-[#7dafff]">{l.user}</span>
+                      <span className="text-[#60a5fa]">{l.user}</span>
                       <span className="text-[#5e6776]">:</span>
-                      <span className="text-[#a78bfa]">{l.path}</span>
+                      <span className="text-[#818cf8]">{l.path}</span>
                       <span className="text-[#5e6776]"> $ </span>
                       <span>{l.cmd}</span>
                       {l.cursor && (
-                        <span className="inline-block w-2 h-[1.05em] align-[-2px] ml-1 bg-[#7dafff] animate-pulse" />
+                        <span className="inline-block w-2 h-[1.05em] align-[-2px] ml-1 bg-[#60a5fa] animate-pulse" />
                       )}
                     </div>
                   ) : (
@@ -123,24 +123,24 @@ export default function Contact() {
 
             {/* Email */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-10 text-[14px] text-[#a8b0bf]"
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-8 text-[14px] text-[#a8b0bf]"
             >
               Email me at{" "}
               <a
                 data-testid="contact-email"
                 href="mailto:sahilkhk001@gmail.com"
-                className="text-[#7dafff] hover:text-white underline-offset-4 hover:underline transition-colors"
+                className="text-[#60a5fa] hover:text-white underline-offset-4 hover:underline transition-colors"
               >
                 sahilkhk001@gmail.com
               </a>
             </motion.div>
 
             {/* Cards */}
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {cards.map((c, i) => (
                 <motion.a
                   key={c.id}
@@ -156,15 +156,15 @@ export default function Contact() {
                     delay: 0.25 + i * 0.08,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="glass hover-lift ring-edge rounded-2xl p-5 flex items-center justify-between group"
+                  className="glass hover-lift ring-edge rounded-2xl p-4 sm:p-5 flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-4">
                     <div
                       className="w-11 h-11 rounded-xl flex items-center justify-center"
                       style={{
-                        background: "rgba(79,140,255,0.10)",
-                        border: "1px solid rgba(79,140,255,0.22)",
-                        color: "#7dafff",
+                        background: "rgba(59,130,246,0.10)",
+                        border: "1px solid rgba(59,130,246,0.24)",
+                        color: "#60a5fa",
                       }}
                     >
                       {c.icon}
@@ -173,14 +173,14 @@ export default function Contact() {
                       <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-[#7e8696]">
                         {c.label}
                       </div>
-                      <div className="font-display text-[17px] text-white tracking-tight mt-0.5">
+                      <div className="font-display text-[16px] text-white tracking-tight mt-0.5">
                         {c.value}
                       </div>
                     </div>
                   </div>
                   <span
                     className="w-9 h-9 rounded-full flex items-center justify-center border border-white/10 bg-white/[0.03] group-hover:bg-white/10 transition-all"
-                    style={{ color: "#7dafff" }}
+                    style={{ color: "#60a5fa" }}
                   >
                     <svg
                       width="13"

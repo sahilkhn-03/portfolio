@@ -5,10 +5,10 @@ export default function About() {
     <section
       id="about"
       data-testid="about-section"
-      className="relative py-28 sm:py-36"
+      className="relative py-20 sm:py-24"
     >
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
           <div className="md:col-span-3">
             <div className="section-tag">
               <span className="dot" />
@@ -21,69 +21,37 @@ export default function About() {
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-[clamp(2rem,4.6vw,3.4rem)] leading-[1.04] tracking-[-0.025em]"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-[clamp(1.85rem,4.2vw,2.9rem)] leading-[1.05] tracking-[-0.025em]"
             >
-              <span className="text-grad-primary">
-                Building practical AI systems &amp;{" "}
-              </span>
-              <span className="font-serif-italic text-grad-blue">
-                intelligent software
-              </span>
+              <span className="text-grad-primary">Building practical AI systems &amp; </span>
+              <span className="font-serif-italic text-grad-blue">intelligent software</span>
               <span className="text-grad-primary">.</span>
             </motion.h2>
 
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="mt-9 space-y-5 text-[16px] leading-[1.78] text-[#a8b0bf]"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mt-7 space-y-4 text-[15.5px] leading-[1.7] text-[#a8b0bf]"
             >
               <p>
                 I am a{" "}
                 <span className="text-white">
                   B.Tech Computer Science (Artificial Intelligence)
                 </span>{" "}
-                student focused on AI Engineering, Machine Learning, RAG
-                systems, and modern software development. I enjoy turning ideas
-                into production-ready applications by combining intelligent
-                models with scalable backend systems and clean user experiences.
+                student focused on building practical machine learning systems,
+                AI applications, and intelligent software products.
               </p>
               <p>
-                Currently exploring{" "}
-                <span className="text-[#7dd3fc]">AI orchestration</span>,{" "}
-                <span className="text-[#a78bfa]">
-                  lightweight language models
-                </span>
-                , and next-generation AI products.
+                My work includes{" "}
+                <span className="text-[#93c5fd]">Retrieval-Augmented Generation (RAG)</span>,
+                AI orchestration platforms, machine learning pipelines, and
+                lightweight language model research. I enjoy transforming ideas
+                into scalable software with clean architecture, strong
+                engineering practices, and real-world usability.
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px]"
-            >
-              <a
-                href="https://github.com/sahilkhn-03"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7dafff] hover:text-white transition-colors underline-offset-4 hover:underline"
-              >
-                GitHub
-              </a>
-              <span className="text-[#3a4150]">·</span>
-              <a
-                href="https://www.linkedin.com/in/sahil-%E3%85%A4-3552b3290/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7dafff] hover:text-white transition-colors underline-offset-4 hover:underline"
-              >
-                LinkedIn
-              </a>
             </motion.div>
           </div>
         </div>
