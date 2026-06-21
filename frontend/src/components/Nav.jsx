@@ -47,7 +47,7 @@ export default function Nav() {
         }`}
         style={{
           boxShadow: scrolled
-            ? "0 20px 50px -20px rgba(0,0,0,0.6), 0 8px 22px -10px rgba(59,130,246,0.22)"
+            ? "0 20px 50px -20px rgba(0,0,0,0.6), 0 8px 22px -10px rgba(79,70,229,0.25)"
             : "0 10px 30px -20px rgba(0,0,0,0.4)",
         }}
       >
