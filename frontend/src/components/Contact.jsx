@@ -105,7 +105,7 @@ export default function Contact() {
                     <div key={i} className="text-[#cfd6e2]">
                       <span className="text-[#60a5fa]">{l.user}</span>
                       <span className="text-[#5e6776]">:</span>
-                      <span className="text-[#818cf8]">{l.path}</span>
+                      <span className="text-[#93c5fd]">{l.path}</span>
                       <span className="text-[#5e6776]"> $ </span>
                       <span>{l.cmd}</span>
                       {l.cursor && (
