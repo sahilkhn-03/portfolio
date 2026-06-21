@@ -26,17 +26,15 @@ export default function About() {
           <div className="md:col-span-9">
             <motion.h2
               {...fade(0)}
-              className="font-display text-white tracking-[-0.035em] leading-[1.05] text-[clamp(2rem,4.4vw,3.2rem)] max-w-[18ch]"
+              className="font-display text-white tracking-[-0.04em] leading-[1.02] text-[clamp(2.2rem,5vw,3.8rem)] max-w-[14ch]"
               style={{ fontWeight: 800, fontFeatureSettings: '"ss01", "cv11"' }}
             >
-              Building practical AI systems
-              <br />
-              and intelligent software.
+              Building at the Intersection of AI &amp; Data Science.
             </motion.h2>
 
             <div
               className="mt-8 space-y-6"
-              style={{ maxWidth: "600px" }}
+              style={{ maxWidth: "650px" }}
             >
               <motion.p
                 {...fade(0.06)}
