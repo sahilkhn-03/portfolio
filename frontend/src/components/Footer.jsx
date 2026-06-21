@@ -10,8 +10,8 @@ export default function Footer() {
             className="w-7 h-7 rounded-md flex items-center justify-center"
             style={{
               background:
-                "linear-gradient(135deg, rgba(59,130,246,0.65), rgba(96,165,250,0.5))",
-              boxShadow: "0 8px 18px -8px rgba(59,130,246,0.55)",
+                "linear-gradient(135deg, rgba(79,70,229,0.7), rgba(167,139,250,0.5))",
+              boxShadow: "0 8px 18px -8px rgba(79,70,229,0.55)",
             }}
           >
             <span className="text-[11px] font-bold text-white">S</span>
@@ -28,9 +28,9 @@ export default function Footer() {
 
         <div className="text-[12px] text-[#7e8696] font-mono">
           Designed &amp; built with{" "}
-          <span className="text-[#93c5fd]">React</span> ·{" "}
-          <span className="text-[#60a5fa]">Framer Motion</span> ·{" "}
-          <span className="text-[#3b82f6]">Tailwind</span>
+          <span className="text-[#a78bfa]">React</span> ·{" "}
+          <span className="text-[#8b5cf6]">Framer Motion</span> ·{" "}
+          <span className="text-[#4f46e5]">Tailwind</span>
         </div>
 
         <div className="text-[12px] text-[#5e6776] font-mono">
