@@ -14,7 +14,7 @@ function Node({ label, intent = "default", emphasis = false }) {
   const p = palette[intent] || palette.default;
   return (
     <div
-      className={`relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-[12.5px] font-medium tracking-[-0.005em] text-white whitespace-nowrap ${
+      className={`relative inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12px] font-medium tracking-[-0.005em] text-white whitespace-nowrap ${
         emphasis ? "shadow-[0_0_24px_-4px_rgba(167,139,250,0.55)]" : ""
       }`}
       style={{
@@ -42,8 +42,8 @@ function Node({ label, intent = "default", emphasis = false }) {
 /** Animated vertical arrow between flow nodes with a violet traveling dot. */
 function FlowArrow() {
   return (
-    <div className="flex justify-center py-1.5" aria-hidden>
-      <svg width="24" height="26" viewBox="0 0 24 26" className="overflow-visible">
+    <div className="flex justify-center" aria-hidden>
+      <svg width="20" height="14" viewBox="0 0 20 14" className="overflow-visible">
         <defs>
           <linearGradient id="fa-line" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="rgba(167,139,250,0)" />
@@ -51,10 +51,10 @@ function FlowArrow() {
             <stop offset="100%" stopColor="rgba(99,102,241,0)" />
           </linearGradient>
         </defs>
-        <line x1="12" y1="0" x2="12" y2="26" stroke="url(#fa-line)" strokeWidth="1.4" />
-        <path d="M8 19 L12 24 L16 19" stroke="rgba(167,139,250,0.6)" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <circle r="2.4" fill="#a78bfa">
-          <animateMotion dur="2.2s" repeatCount="indefinite" path="M12,-2 L12,24" />
+        <line x1="10" y1="0" x2="10" y2="14" stroke="url(#fa-line)" strokeWidth="1.3" />
+        <path d="M7 9 L10 13 L13 9" stroke="rgba(167,139,250,0.6)" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <circle r="2" fill="#a78bfa">
+          <animateMotion dur="2.2s" repeatCount="indefinite" path="M10,-2 L10,13" />
           <animate attributeName="opacity" values="0;1;1;0" dur="2.2s" repeatCount="indefinite" />
         </circle>
       </svg>
@@ -64,8 +64,8 @@ function FlowArrow() {
 
 function FlowDiagram({ nodes }) {
   return (
-    <div className="relative w-full max-w-md mx-auto py-2">
-      <div className="flex flex-col items-center">
+    <div className="relative w-full max-w-sm mx-auto">
+      <div className="flex flex-col items-center gap-1">
         {nodes.map((n, i) => (
           <div key={`${n}-${i}`} className="w-full flex flex-col items-center">
             <Node label={n} intent={i === 0 || i === nodes.length - 1 ? "primary" : "default"} />
@@ -78,7 +78,7 @@ function FlowDiagram({ nodes }) {
 }
 
 /** Hub-and-spoke radial diagram. Center node + spokes positioned around. */
-function HubDiagram({ center, spokes, layers = [] }) {
+function HubDiagram({ center, spokes, layers = [], compact = false }) {
   // canonical positions for up to 5 spokes around the center
   const layouts = {
     4: [
@@ -87,18 +87,27 @@ function HubDiagram({ center, spokes, layers = [] }) {
       { left: "8%", bottom: "30%" },
       { right: "8%", bottom: "30%" },
     ],
-    5: [
-      { left: "50%", top: "0%", translate: "-50%, 0" },
-      { left: "6%", top: "22%" },
-      { right: "6%", top: "22%" },
-      { left: "16%", bottom: "30%" },
-      { right: "16%", bottom: "30%" },
-    ],
+    5: compact
+      ? [
+          { left: "50%", top: "0%", translate: "-50%, 0" },
+          { left: "4%", top: "32%" },
+          { right: "4%", top: "32%" },
+          { left: "12%", bottom: "8%" },
+          { right: "12%", bottom: "8%" },
+        ]
+      : [
+          { left: "50%", top: "0%", translate: "-50%, 0" },
+          { left: "6%", top: "22%" },
+          { right: "6%", top: "22%" },
+          { left: "16%", bottom: "30%" },
+          { right: "16%", bottom: "30%" },
+        ],
   };
   const positions = layouts[spokes.length] || layouts[4];
+  const heightClass = compact ? "h-[240px] sm:h-[260px]" : "h-[360px] sm:h-[400px]";
 
   return (
-    <div className="relative w-full max-w-md mx-auto h-[360px] sm:h-[400px]">
+    <div className={`relative w-full max-w-md mx-auto ${heightClass}`}>
       {/* SVG lines from center to each spoke */}
       <svg
         aria-hidden
@@ -113,15 +122,22 @@ function HubDiagram({ center, spokes, layers = [] }) {
           </linearGradient>
         </defs>
         {positions.map((_, i) => {
-          // Approximate end points (matches CSS percentages roughly)
           const endPoints = {
-            5: [
-              [200, 30],
-              [40, 110],
-              [360, 110],
-              [80, 320],
-              [320, 320],
-            ],
+            5: compact
+              ? [
+                  [200, 20],
+                  [30, 150],
+                  [370, 150],
+                  [70, 360],
+                  [330, 360],
+                ]
+              : [
+                  [200, 30],
+                  [40, 110],
+                  [360, 110],
+                  [80, 320],
+                  [320, 320],
+                ],
             4: [
               [60, 50],
               [340, 50],
@@ -134,7 +150,7 @@ function HubDiagram({ center, spokes, layers = [] }) {
             <line
               key={i}
               x1="200"
-              y1="185"
+              y1={compact ? "210" : "185"}
               x2={ex}
               y2={ey}
               stroke="url(#hub-line)"
@@ -156,7 +172,7 @@ function HubDiagram({ center, spokes, layers = [] }) {
       {/* center node */}
       <div
         className="absolute"
-        style={{ left: "50%", top: "44%", transform: "translate(-50%, -50%)" }}
+        style={{ left: "50%", top: compact ? "52%" : "44%", transform: "translate(-50%, -50%)" }}
       >
         <Node label={center} intent="primary" emphasis />
       </div>
@@ -165,15 +181,15 @@ function HubDiagram({ center, spokes, layers = [] }) {
       <div
         aria-hidden
         className="absolute pointer-events-none"
-        style={{ left: "50%", top: "44%", transform: "translate(-50%, -50%)" }}
+        style={{ left: "50%", top: compact ? "52%" : "44%", transform: "translate(-50%, -50%)" }}
       >
         <span
           className="block rounded-full"
           style={{
-            width: 96,
-            height: 96,
+            width: 80,
+            height: 80,
             background:
-              "radial-gradient(circle, rgba(139,92,246,0.28), transparent 65%)",
+              "radial-gradient(circle, rgba(139,92,246,0.22), transparent 65%)",
             filter: "blur(14px)",
             animation: "pulseRing 3s ease-in-out infinite",
           }}
@@ -220,11 +236,11 @@ function HubDiagram({ center, spokes, layers = [] }) {
 
 function Architecture({ arch }) {
   return (
-    <div className="relative rounded-2xl p-5 sm:p-6 overflow-hidden"
+    <div className="relative rounded-2xl p-4 sm:p-5 overflow-hidden"
          style={{
            background: "linear-gradient(180deg, rgba(20,20,30,0.55) 0%, rgba(10,10,18,0.7) 100%)",
            border: "1px solid rgba(255,255,255,0.07)",
-           boxShadow: "0 30px 60px -28px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04)",
+           boxShadow: "0 20px 40px -28px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)",
          }}>
       {/* ambient glow */}
       <span
@@ -236,7 +252,7 @@ function Architecture({ arch }) {
         }}
       />
       <div className="relative">
-        <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-[#a78bfa] mb-4">
+        <div className="font-mono text-[9.5px] tracking-[0.22em] uppercase text-[#a78bfa] mb-3">
           Architecture
         </div>
         {arch.type === "flow" ? (
@@ -334,6 +350,7 @@ const PROJECTS = [
     badge: "Winner · HackQuest 2025",
     arch: {
       type: "hub",
+      compact: true,
       center: "Alert Engine",
       spokes: ["Users", "Geo Zones", "Emergency Services", "Notification Layer", "ML Detection"],
     },
