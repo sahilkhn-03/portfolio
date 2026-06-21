@@ -52,10 +52,10 @@ function InteractiveName() {
     <h1
       data-testid="hero-name"
       aria-label="SAHIL"
-      className="relative inline-flex select-none leading-[0.86] tracking-[-0.05em] font-display"
+      className="relative inline-flex select-none leading-[0.9] tracking-[-0.05em] font-display"
       style={{
-        fontWeight: 800,
-        fontSize: "clamp(4.2rem, 15vw, 11rem)",
+        fontWeight: 900,
+        fontSize: "clamp(4.2rem, 14vw, 10.5rem)",
       }}
     >
       {LETTERS.map((ch, i) => (
@@ -154,36 +154,27 @@ function MeshLayer() {
     <div
       aria-hidden
       className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ opacity: 0.22 }}
     >
       <motion.div
-        className="absolute -top-20 -left-24 w-[60vw] h-[60vw] rounded-full"
+        className="absolute -top-40 -left-40 w-[40vw] h-[40vw] rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(79,70,229,0.42), transparent 60%)",
-          filter: "blur(80px)",
-        }}
-        animate={{ x: [0, 60, -20, 0], y: [0, 30, -10, 0] }}
-        transition={{ duration: 24, ease: "easeInOut", repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute top-10 -right-20 w-[55vw] h-[55vw] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle at 70% 30%, rgba(139,92,246,0.38), transparent 60%)",
+            "radial-gradient(circle at 30% 30%, rgba(99,102,241,0.22), transparent 65%)",
           filter: "blur(90px)",
         }}
-        animate={{ x: [0, -40, 20, 0], y: [0, -20, 30, 0] }}
-        transition={{ duration: 28, ease: "easeInOut", repeat: Infinity }}
+        animate={{ x: [0, 30, -10, 0], y: [0, 20, -8, 0] }}
+        transition={{ duration: 30, ease: "easeInOut", repeat: Infinity }}
       />
       <motion.div
-        className="absolute bottom-0 left-1/3 w-[50vw] h-[50vw] rounded-full"
+        className="absolute -bottom-40 -right-40 w-[40vw] h-[40vw] rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(167,139,250,0.26), transparent 65%)",
-          filter: "blur(90px)",
+            "radial-gradient(circle at 70% 70%, rgba(139,92,246,0.18), transparent 65%)",
+          filter: "blur(100px)",
         }}
-        animate={{ x: [0, 30, -30, 0], y: [0, -15, 10, 0] }}
-        transition={{ duration: 32, ease: "easeInOut", repeat: Infinity }}
+        animate={{ x: [0, -20, 10, 0], y: [0, -10, 14, 0] }}
+        transition={{ duration: 34, ease: "easeInOut", repeat: Infinity }}
       />
     </div>
   );
@@ -200,35 +191,42 @@ export default function Hero() {
       onMouseMove={(e) => setGlow({ x: e.clientX, y: e.clientY, on: true })}
       onMouseLeave={() => setGlow((g) => ({ ...g, on: false }))}
     >
-      {/* Layer 1: deep navy gradient */}
+      {/* Layer 1: deep base background */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
+        style={{ background: "#07070a" }}
+      />
+
+      {/* Layer 2: subtle radial accent (replaces large fog) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, #0a0a14 0%, #0c0c1c 50%, #09090b 100%)",
+            "radial-gradient(620px 320px at 28% 38%, rgba(99,102,241,0.10), transparent 70%)",
         }}
       />
 
-      {/* Layer 2: animated mesh gradient */}
+      {/* Layer 3: very subtle animated mesh */}
       <MeshLayer />
 
-      {/* Layer 3: hero-scoped aurora */}
-      <div className="aurora opacity-50" aria-hidden />
+      {/* Layer 4: muted aurora */}
+      <div className="aurora" aria-hidden />
 
-      {/* Layer 4: mouse spotlight */}
+      {/* Layer 5: soft mouse spotlight */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{ opacity: glow.on ? 1 : 0 }}
       >
         <div
-          className="absolute w-[440px] h-[440px] rounded-full"
+          className="absolute w-[340px] h-[340px] rounded-full"
           style={{
-            left: glow.x - 220,
-            top: glow.y - 220,
+            left: glow.x - 170,
+            top: glow.y - 170,
             background:
-              "radial-gradient(circle, rgba(139,92,246,0.22), transparent 65%)",
+              "radial-gradient(circle, rgba(139,92,246,0.10), transparent 65%)",
             filter: "blur(30px)",
             mixBlendMode: "screen",
           }}

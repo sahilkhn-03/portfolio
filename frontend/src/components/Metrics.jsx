@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from "react";
 
 const METRICS = [
   { value: "5+", label: "Projects Built" },
-  { value: "🏆", label: "HackQuest Winner", isIcon: true },
-  { value: "1", label: "NPTEL Certification" },
   { value: "3+", label: "Years Building Projects" },
 ];
 
@@ -50,7 +48,7 @@ export default function Metrics() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
           <div className="hidden md:block md:col-span-3" />
           <div className="md:col-span-9">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-8 sm:gap-y-0 sm:gap-x-6">
+            <div className="grid grid-cols-2 gap-x-10 sm:gap-x-16 max-w-md">
               {METRICS.map((m, i) => (
                 <motion.div
                   key={m.label}
@@ -64,7 +62,7 @@ export default function Metrics() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className={`relative ${
-                    i > 0 ? "sm:pl-6 sm:border-l sm:border-white/[0.07]" : ""
+                    i > 0 ? "sm:pl-10 sm:border-l sm:border-white/[0.07]" : ""
                   }`}
                 >
                   <div

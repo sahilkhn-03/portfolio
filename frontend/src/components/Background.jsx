@@ -28,15 +28,15 @@ export default function Background() {
       canvas.style.height = h + "px";
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      const count = Math.min(70, Math.floor((w * h) / 24000));
+      const count = Math.min(40, Math.floor((w * h) / 40000));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        r: Math.random() * 1.4 + 0.4,
+        vx: (Math.random() - 0.5) * 0.14,
+        vy: (Math.random() - 0.5) * 0.14,
+        r: Math.random() * 1.1 + 0.3,
         hue: Math.random() > 0.6 ? "violet" : Math.random() > 0.4 ? "ice" : "blue",
-        alpha: Math.random() * 0.5 + 0.3,
+        alpha: Math.random() * 0.25 + 0.12,
       }));
     };
 
@@ -79,8 +79,8 @@ export default function Background() {
 
         ctx.beginPath();
         ctx.fillStyle = `rgba(${colorOf(p.hue)}, ${alpha})`;
-        ctx.shadowColor = `rgba(${colorOf(p.hue)}, ${alpha * 0.7})`;
-        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(${colorOf(p.hue)}, ${alpha * 0.4})`;
+        ctx.shadowBlur = 4;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -103,7 +103,7 @@ export default function Background() {
   return (
     <>
       {/* Solid base + radial glow */}
-      <div className="fixed inset-0 -z-30" style={{ background: "#09090b" }} />
+      <div className="fixed inset-0 -z-30" style={{ background: "#07070a" }} />
       <div className="fixed inset-0 -z-20 bg-radial-glow" />
       <div className="fixed inset-0 -z-20 bg-grid" />
       <div className="fixed inset-0 -z-10 noise pointer-events-none" />
