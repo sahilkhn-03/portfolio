@@ -273,6 +273,143 @@ function Architecture({ arch }) {
 }
 
 /* ---------------------------------------------------------------------------
+ * Service icons (circular nodes for production-style architecture diagrams)
+ * ------------------------------------------------------------------------- */
+const ICONS = {
+  user: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M4.5 20a7.5 7.5 0 0115 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  question: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M21 12a8 8 0 11-3.4-6.55L21 4l-1 4-4 .5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.5 9a2.5 2.5 0 015 0c0 1.6-2.5 2-2.5 4M12 17h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  knowledge: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M4 5a2 2 0 012-2h8l6 6v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M14 3v6h6M8 13h8M8 17h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  video: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <rect x="3" y="6" width="14" height="12" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M17 10l4-2v8l-4-2v-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  ),
+  document: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M6 3h8l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M14 3v4h4M8 13h8M8 17h6M8 9h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  ),
+  pdf: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M6 3h8l4 4v14a1 1 0 01-1 1H6a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <text x="8.5" y="17" fontFamily="JetBrains Mono, monospace" fontSize="5.5" fontWeight="700" fill="currentColor">PDF</text>
+    </svg>
+  ),
+  chip: (
+    <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+      <rect x="6" y="6" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M9 2v4M12 2v4M15 2v4M9 18v4M12 18v4M15 18v4M2 9h4M2 12h4M2 15h4M18 9h4M18 12h4M18 15h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  ),
+  llm: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M9 4a3 3 0 016 0v1a3 3 0 013 3v2a3 3 0 010 6v2a3 3 0 01-3 3 3 3 0 01-6 0 3 3 0 01-3-3v-2a3 3 0 010-6V8a3 3 0 013-3V4z" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  ),
+  response: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <path d="M21 12a8 8 0 11-3.4-6.55" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M7 12l3 3 7-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  vector: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <ellipse cx="12" cy="6" rx="7" ry="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 6v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 12v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  ),
+  embed: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <circle cx="6" cy="6" r="2" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="18" cy="6" r="2" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="6" cy="18" r="2" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="18" cy="18" r="2" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="12" cy="12" r="2.2" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M7.5 7.5l3 3M16.5 7.5l-3 3M7.5 16.5l3-3M16.5 16.5l-3-3" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  ),
+  retriever: (
+    <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+      <circle cx="10" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M14.5 14.5l5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  ),
+};
+
+function ServiceNode({ node, isActive }) {
+  const primary = !!node.center;
+  const size = primary ? "w-[58px] h-[58px]" : "w-12 h-12";
+  return (
+    <div className="flex flex-col items-center gap-1.5 select-none">
+      <div
+        className={`relative ${size} rounded-full flex items-center justify-center transition-all duration-300`}
+        style={{
+          background: primary
+            ? "radial-gradient(circle at 30% 25%, rgba(167,139,250,0.35), rgba(79,70,229,0.16) 60%, rgba(20,18,38,0.85))"
+            : "linear-gradient(180deg, rgba(20,20,30,0.92), rgba(10,10,18,0.92))",
+          border: `1px solid ${
+            primary
+              ? "rgba(167,139,250,0.55)"
+              : isActive
+              ? "rgba(167,139,250,0.5)"
+              : "rgba(255,255,255,0.10)"
+          }`,
+          color: primary || isActive ? "#cdcafa" : "#cbd5e1",
+          boxShadow: primary
+            ? "0 10px 26px -10px rgba(79,70,229,0.5), inset 0 1px 0 rgba(255,255,255,0.10)"
+            : isActive
+            ? "0 6px 18px -6px rgba(167,139,250,0.45), inset 0 1px 0 rgba(255,255,255,0.06)"
+            : "0 6px 14px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
+        }}
+      >
+        {/* primary outer pulse ring */}
+        {primary && (
+          <span
+            aria-hidden
+            className="absolute -inset-1.5 rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(139,92,246,0.16), transparent 65%)",
+              filter: "blur(6px)",
+              animation: "pulseRing 3s ease-in-out infinite",
+            }}
+          />
+        )}
+        <span className="relative">{ICONS[node.icon] || ICONS.chip}</span>
+      </div>
+      <div
+        className="text-[10px] sm:text-[10.5px] font-medium tracking-[-0.005em] text-white text-center whitespace-nowrap"
+        style={{
+          textShadow: "0 1px 0 rgba(0,0,0,0.4)",
+        }}
+      >
+        {node.label}
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------------
  * Network diagram — modules orbiting a knowledge engine, animated flows
  * ------------------------------------------------------------------------- */
 
@@ -287,7 +424,7 @@ function NetworkDiagram({ arch }) {
   const activeNode = active ? nodeById[active] : null;
 
   return (
-    <div className="relative w-full max-w-md mx-auto h-[360px] sm:h-[380px]">
+    <div className="relative w-full max-w-md mx-auto h-[400px] sm:h-[420px]">
       <svg
         aria-hidden
         viewBox="0 0 400 400"
@@ -296,8 +433,8 @@ function NetworkDiagram({ arch }) {
       >
         <defs>
           <linearGradient id="net-line" x1="0" x2="1">
-            <stop offset="0%" stopColor="rgba(167,139,250,0.55)" />
-            <stop offset="100%" stopColor="rgba(99,102,241,0.08)" />
+            <stop offset="0%" stopColor="rgba(167,139,250,0.5)" />
+            <stop offset="100%" stopColor="rgba(99,102,241,0.06)" />
           </linearGradient>
         </defs>
         {edges.map(([fromId, toId], i) => {
@@ -306,14 +443,13 @@ function NetworkDiagram({ arch }) {
           if (!a || !b) return null;
           const activeE = isEdgeActive([fromId, toId]);
           const pathId = `nedge-${fromId}-${toId}`;
-          // gentle curve via control point offset perpendicular to the segment
           const mx = (a.x + b.x) / 2;
           const my = (a.y + b.y) / 2;
           const dx = b.x - a.x;
           const dy = b.y - a.y;
           const len = Math.hypot(dx, dy) || 1;
-          const cx = mx + (-dy / len) * 14;
-          const cy = my + (dx / len) * 14;
+          const cx = mx + (-dy / len) * 12;
+          const cy = my + (dx / len) * 12;
           const d = `M ${a.x},${a.y} Q ${cx},${cy} ${b.x},${b.y}`;
           return (
             <g key={i}>
@@ -321,7 +457,7 @@ function NetworkDiagram({ arch }) {
                 id={pathId}
                 d={d}
                 stroke={activeE ? "rgba(167,139,250,0.95)" : "url(#net-line)"}
-                strokeWidth={activeE ? 1.4 : 0.9}
+                strokeWidth={activeE ? 1.4 : 0.85}
                 strokeDasharray={activeE ? "0" : "3 5"}
                 fill="none"
                 style={{ transition: "stroke 0.25s ease, stroke-width 0.25s ease" }}
@@ -332,11 +468,11 @@ function NetworkDiagram({ arch }) {
                     values="0;-16"
                     dur="3s"
                     repeatCount="indefinite"
-                    begin={`${i * 0.18}s`}
+                    begin={`${i * 0.17}s`}
                   />
                 )}
               </path>
-              <circle r="1.8" fill="#a78bfa" opacity={activeE ? 1 : 0.85}>
+              <circle r="1.7" fill="#a78bfa" opacity={activeE ? 1 : 0.8}>
                 <animateMotion dur={`${3 + (i % 3) * 0.4}s`} repeatCount="indefinite" begin={`${(i * 0.3) % 2}s`}>
                   <mpath href={`#${pathId}`} />
                 </animateMotion>
@@ -347,33 +483,9 @@ function NetworkDiagram({ arch }) {
         })}
       </svg>
 
-      {/* center pulse */}
-      <div
-        aria-hidden
-        className="absolute pointer-events-none"
-        style={{
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%,-50%)",
-        }}
-      >
-        <span
-          className="block rounded-full"
-          style={{
-            width: 84,
-            height: 84,
-            background:
-              "radial-gradient(circle, rgba(139,92,246,0.18), transparent 65%)",
-            filter: "blur(10px)",
-            animation: "pulseRing 3.4s ease-in-out infinite",
-          }}
-        />
-      </div>
-
       {/* nodes */}
       {nodes.map((n) => {
         const isActive = active === n.id;
-        const intent = n.center ? "primary" : "default";
         return (
           <button
             key={n.id}
@@ -388,14 +500,10 @@ function NetworkDiagram({ arch }) {
               top: `${(n.y / 400) * 100}%`,
               transform: "translate(-50%, -50%)",
               transition: "filter 0.25s ease",
-              filter: isActive ? "drop-shadow(0 0 10px rgba(167,139,250,0.45))" : "none",
+              filter: isActive ? "drop-shadow(0 0 10px rgba(167,139,250,0.4))" : "none",
             }}
           >
-            <Node
-              label={n.label}
-              intent={n.center ? "primary" : isActive ? "accent" : intent}
-              emphasis={n.center || isActive}
-            />
+            <ServiceNode node={n} isActive={isActive} />
           </button>
         );
       })}
@@ -406,16 +514,16 @@ function NetworkDiagram({ arch }) {
           className="absolute pointer-events-none z-10"
           style={{
             left: `${(activeNode.x / 400) * 100}%`,
-            top: `${(activeNode.y / 400) * 100 + 6}%`,
+            top: `${(activeNode.y / 400) * 100 + 9}%`,
             transform: "translate(-50%, 0)",
           }}
         >
           <div
-            className="mt-2 px-2.5 py-1.5 rounded-md text-[10.5px] leading-snug max-w-[180px] text-center text-[#cbd5e1]"
+            className="mt-2 px-2.5 py-1.5 rounded-md text-[10.5px] leading-snug max-w-[200px] text-center text-[#cbd5e1]"
             style={{
-              background: "rgba(20,18,38,0.92)",
+              background: "rgba(20,18,38,0.94)",
               border: "1px solid rgba(167,139,250,0.32)",
-              boxShadow: "0 8px 22px -10px rgba(0,0,0,0.6)",
+              boxShadow: "0 10px 26px -12px rgba(0,0,0,0.6)",
               backdropFilter: "blur(8px)",
             }}
           >
@@ -424,7 +532,7 @@ function NetworkDiagram({ arch }) {
         </div>
       )}
 
-      <style>{`@keyframes pulseRing { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1) } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.18) } }`}</style>
+      <style>{`@keyframes pulseRing { 0%,100% { opacity: 0.5; transform: scale(1) } 50% { opacity: 1; transform: scale(1.18) } }`}</style>
     </div>
   );
 }
@@ -455,43 +563,47 @@ const PROJECTS = [
     live: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
     arch: {
       type: "network",
-      title: "RAG Knowledge Pipeline",
+      title: "Retrieval-Augmented Generation System",
       subtitle:
-        "Retrieval-Augmented Generation system for educational content search and question answering.",
+        "Semantic search and context-aware question answering over educational content.",
       nodes: [
         // Center
-        { id: "engine", label: "Knowledge Engine", x: 200, y: 200, center: true, desc: "Central orchestrator coordinating ingestion, retrieval and generation." },
-        // Left column — ingestion
-        { id: "video", label: "Video Sources", x: 60, y: 80, desc: "Educational video inputs ingested into the pipeline." },
-        { id: "whisper", label: "Whisper STT", x: 50, y: 200, desc: "Speech-to-text transcription with Whisper." },
-        { id: "transcript", label: "Transcript Processing", x: 70, y: 320, desc: "Cleans, chunks and timestamps transcripts." },
-        // Top row — embedding + storage
-        { id: "embed", label: "Embedding Service", x: 150, y: 50, desc: "Generates dense vector embeddings for each chunk." },
-        { id: "vector", label: "Vector Database", x: 260, y: 50, desc: "Stores embeddings for fast similarity search." },
-        // Right column — retrieval
-        { id: "retriever", label: "Retriever", x: 340, y: 140, desc: "Performs semantic + timestamp-aware retrieval." },
-        { id: "context", label: "Context Builder", x: 350, y: 260, desc: "Assembles top-k chunks into prompt context." },
-        // Bottom row — generation
-        { id: "llm", label: "LLM", x: 150, y: 360, desc: "Reasoning model grounded on retrieved context." },
-        { id: "response", label: "Response Generator", x: 260, y: 360, desc: "Formats final answer with citations + timestamps." },
+        { id: "engine", label: "RAG Engine", x: 200, y: 200, center: true, icon: "chip", desc: "Central orchestrator coordinating retrieval and generation." },
+        // Left — user input
+        { id: "user", label: "User", x: 50, y: 130, icon: "user", desc: "Sends questions to the assistant." },
+        { id: "question", label: "Question", x: 50, y: 270, icon: "question", desc: "Natural-language query routed to the RAG engine." },
+        // Top — knowledge ingestion
+        { id: "kb", label: "Knowledge Base", x: 95, y: 50, icon: "knowledge", desc: "Aggregated educational corpus." },
+        { id: "videos", label: "Course Videos", x: 175, y: 30, icon: "video", desc: "Lectures transcribed via Whisper STT." },
+        { id: "docs", label: "Documents", x: 255, y: 30, icon: "document", desc: "Notes and reference material." },
+        { id: "pdfs", label: "PDFs", x: 335, y: 50, icon: "pdf", desc: "Course PDFs parsed and indexed." },
+        // Right — generation
+        { id: "llm", label: "LLM", x: 360, y: 175, icon: "llm", desc: "Reasoning model grounded on retrieved context." },
+        { id: "response", label: "Response", x: 360, y: 275, icon: "response", desc: "Final answer with citations and timestamps." },
+        // Bottom — retrieval layer
+        { id: "vector", label: "Vector DB", x: 130, y: 360, icon: "vector", desc: "Stores embeddings for fast similarity search." },
+        { id: "embed", label: "Embeddings", x: 215, y: 380, icon: "embed", desc: "Dense vectors generated from each chunk." },
+        { id: "retriever", label: "Retriever", x: 300, y: 360, icon: "retriever", desc: "Semantic + timestamp-aware retrieval." },
       ],
       edges: [
-        // ingestion → engine
-        ["video", "whisper"],
-        ["whisper", "transcript"],
-        ["transcript", "engine"],
-        // engine → indexing
-        ["engine", "embed"],
+        // User flow
+        ["user", "engine"],
+        ["question", "engine"],
+        // Sources feed knowledge base
+        ["videos", "kb"],
+        ["docs", "kb"],
+        ["pdfs", "kb"],
+        // Ingestion pipeline
+        ["kb", "embed"],
         ["embed", "vector"],
-        ["vector", "engine"],
-        // engine → retrieval
-        ["engine", "retriever"],
-        ["retriever", "context"],
-        ["context", "engine"],
-        // engine → generation
+        ["vector", "retriever"],
+        // Retrieval → engine
+        ["retriever", "engine"],
+        // Generation
         ["engine", "llm"],
         ["llm", "response"],
-        ["response", "engine"],
+        // Loop back to user
+        ["response", "user"],
       ],
     },
   },
