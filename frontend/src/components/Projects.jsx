@@ -161,6 +161,8 @@ function ProjectRow({ p, index }) {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Collapse" : "Expand"}
+            aria-expanded={open}
+            aria-controls={`project-details-${p.id}`}
             data-testid={`project-toggle-${p.id}`}
             className="w-9 h-9 rounded-full flex items-center justify-center bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-[#4f8cff]/40 transition-all"
             style={{ color: "#7dafff" }}
@@ -188,6 +190,7 @@ function ProjectRow({ p, index }) {
         {open && (
           <motion.div
             key="content"
+            id={`project-details-${p.id}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

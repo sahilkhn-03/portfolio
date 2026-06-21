@@ -155,7 +155,7 @@ export default function Hero() {
               <span>Resume</span>
             </a>
             <span className="text-[#3a4150]">·</span>
-            <span>Last updated Jun 2026</span>
+            <span>Last updated Jan 2026</span>
           </motion.div>
 
           {/* Stats row */}
