@@ -382,3 +382,30 @@ body {
         display: none;
     }
 }
+
+/* ============ AURORA GRADIENT ============ */
+.aurora {
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 720px;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(80px) saturate(140%);
+    opacity: 0.55;
+    background:
+        radial-gradient(40% 60% at 20% 40%, rgba(79, 140, 255, 0.45), transparent 70%),
+        radial-gradient(35% 50% at 75% 30%, rgba(167, 139, 250, 0.4), transparent 70%),
+        radial-gradient(30% 50% at 50% 70%, rgba(125, 211, 252, 0.3), transparent 70%);
+    animation: auroraShift 16s ease-in-out infinite alternate;
+}
+@keyframes auroraShift {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(2%, -1%, 0) scale(1.05); }
+    100% { transform: translate3d(-2%, 1%, 0) scale(0.98); }
+}
+
+/* project card 3d feel */
+.project-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
