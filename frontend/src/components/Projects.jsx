@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ---------------------------------------------------------------------------
  * Architecture primitives — pure SVG / CSS, no images
@@ -421,38 +422,15 @@ function ShowcaseLink({ href, primary, label, testId }) {
 }
 
 function ProjectShowcase({ p, index }) {
+  const [open, setOpen] = useState(false);
   const reverse = index % 2 === 1;
 
   const text = (
     <div className="lg:w-1/2">
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-8% 0px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-[#a78bfa]">
-          P · {p.no}
-        </div>
-        <h3 className="font-display mt-3 text-white tracking-[-0.025em] leading-[1.1] text-[clamp(1.5rem,2.5vw,1.95rem)]" style={{ fontWeight: 700 }}>
-          {p.name}
-        </h3>
-        {p.badge && (
-          <div className="mt-2 inline-flex items-center gap-1.5 font-mono text-[10.5px] tracking-[0.06em] uppercase px-2 py-0.5 rounded-full"
-               style={{ background: "rgba(255,206,107,0.08)", color: "#ffce6b", border: "1px solid rgba(255,206,107,0.22)" }}>
-            ★ {p.badge}
-          </div>
-        )}
-        <p className="mt-3 text-[15px] leading-[1.65] text-[#cbd5e1] max-w-xl">
-          {p.tagline}
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.08 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="mt-6 grid grid-cols-1 sm:grid-cols-12 gap-3 max-w-xl"
       >
         <div className="sm:col-span-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#a78bfa] pt-0.5">Problem</div>
@@ -463,10 +441,9 @@ function ProjectShowcase({ p, index }) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.16 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.08 }}
         className="mt-6 max-w-xl"
       >
         <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#a78bfa] mb-2">
@@ -484,9 +461,8 @@ function ProjectShowcase({ p, index }) {
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.55, delay: 0.22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.14 }}
         className="mt-7 flex flex-wrap items-center gap-2"
       >
         {p.live && (
@@ -510,10 +486,9 @@ function ProjectShowcase({ p, index }) {
   const diagram = (
     <div className="lg:w-1/2 w-full">
       <motion.div
-        initial={{ opacity: 0, y: 18, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, margin: "-8% 0px" }}
-        transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 12, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
       >
         <Architecture arch={p.arch} />
       </motion.div>
@@ -523,23 +498,82 @@ function ProjectShowcase({ p, index }) {
   return (
     <article
       data-testid={`project-card-${p.id}`}
-      className="relative py-16 sm:py-20"
+      className="relative border-t border-white/[0.07] first:border-t-0"
     >
-      {/* divider between projects */}
-      {index > 0 && (
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
-        />
-      )}
-
-      <div
-        className={`flex flex-col gap-10 lg:gap-14 ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} items-start`}
+      {/* Collapsed header — always visible, click toggles */}
+      <button
+        data-testid={`project-toggle-${p.id}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={`project-details-${p.id}`}
+        className="w-full text-left py-6 sm:py-7 group transition-colors"
       >
-        {text}
-        {diagram}
-      </div>
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="font-mono text-[10.5px] tracking-[0.22em] uppercase text-[#a78bfa]">
+              P · {p.no}
+            </div>
+            <h3
+              className="font-display mt-2 text-white tracking-[-0.025em] leading-[1.1] text-[clamp(1.4rem,2.4vw,1.85rem)] transition-colors group-hover:text-[#e7e5f0]"
+              style={{ fontWeight: 700 }}
+            >
+              {p.name}
+            </h3>
+            {p.badge && (
+              <div className="mt-2 inline-flex items-center gap-1.5 font-mono text-[10.5px] tracking-[0.06em] uppercase px-2 py-0.5 rounded-full"
+                   style={{ background: "rgba(255,206,107,0.08)", color: "#ffce6b", border: "1px solid rgba(255,206,107,0.22)" }}>
+                ★ {p.badge}
+              </div>
+            )}
+            <p className="mt-2.5 text-[14.5px] leading-[1.65] text-[#94a3b8] max-w-xl">
+              {p.tagline}
+            </p>
+          </div>
+
+          {/* Chevron toggle */}
+          <span
+            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-all"
+            style={{
+              borderColor: open ? "rgba(167,139,250,0.45)" : "rgba(255,255,255,0.10)",
+              background: open ? "rgba(167,139,250,0.10)" : "rgba(255,255,255,0.03)",
+              color: "#a78bfa",
+            }}
+          >
+            <motion.svg
+              animate={{ rotate: open ? 45 : 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </motion.svg>
+          </span>
+        </div>
+      </button>
+
+      {/* Expanded content */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="content"
+            id={`project-details-${p.id}`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div
+              className={`pb-10 sm:pb-14 flex flex-col gap-10 lg:gap-14 ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} items-start`}
+            >
+              {text}
+              {diagram}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </article>
   );
 }
@@ -565,15 +599,15 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-white tracking-[-0.035em] leading-[1.04] text-[clamp(2rem,4.4vw,3.2rem)] max-w-[16ch]"
+              className="font-display text-white tracking-[-0.035em] leading-[1.04] text-[clamp(2rem,4.4vw,3.2rem)]"
               style={{ fontWeight: 800 }}
             >
-              Selected engineering case studies.
+              Projects
             </motion.h2>
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-10 border-b border-white/[0.07]">
           {PROJECTS.map((p, i) => (
             <ProjectShowcase p={p} index={i} key={p.id} />
           ))}
