@@ -248,19 +248,183 @@ function Architecture({ arch }) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(60% 50% at 50% 0%, rgba(79,70,229,0.18), transparent 70%), radial-gradient(50% 50% at 50% 100%, rgba(167,139,250,0.16), transparent 70%)",
+            "radial-gradient(60% 50% at 50% 0%, rgba(79,70,229,0.10), transparent 70%), radial-gradient(50% 50% at 50% 100%, rgba(167,139,250,0.08), transparent 70%)",
         }}
       />
       <div className="relative">
-        <div className="font-mono text-[9.5px] tracking-[0.22em] uppercase text-[#a78bfa] mb-3">
-          Architecture
+        <div className="font-mono text-[9.5px] tracking-[0.22em] uppercase text-[#a78bfa] mb-1">
+          {arch.title || "Architecture"}
         </div>
-        {arch.type === "flow" ? (
+        {arch.subtitle && (
+          <div className="text-[11.5px] text-[#94a3b8] leading-snug mb-3 max-w-[34ch]">
+            {arch.subtitle}
+          </div>
+        )}
+        {arch.type === "network" ? (
+          <NetworkDiagram arch={arch} />
+        ) : arch.type === "flow" ? (
           <FlowDiagram nodes={arch.nodes} />
         ) : (
           <HubDiagram {...arch} />
         )}
       </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+ * Network diagram — modules orbiting a knowledge engine, animated flows
+ * ------------------------------------------------------------------------- */
+
+function NetworkDiagram({ arch }) {
+  const [active, setActive] = useState(null);
+  const nodes = arch.nodes;
+  const edges = arch.edges;
+
+  const nodeById = Object.fromEntries(nodes.map((n) => [n.id, n]));
+  const isEdgeActive = (e) => active && (e[0] === active || e[1] === active);
+
+  const activeNode = active ? nodeById[active] : null;
+
+  return (
+    <div className="relative w-full max-w-md mx-auto h-[360px] sm:h-[380px]">
+      <svg
+        aria-hidden
+        viewBox="0 0 400 400"
+        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+      >
+        <defs>
+          <linearGradient id="net-line" x1="0" x2="1">
+            <stop offset="0%" stopColor="rgba(167,139,250,0.55)" />
+            <stop offset="100%" stopColor="rgba(99,102,241,0.08)" />
+          </linearGradient>
+        </defs>
+        {edges.map(([fromId, toId], i) => {
+          const a = nodeById[fromId];
+          const b = nodeById[toId];
+          if (!a || !b) return null;
+          const activeE = isEdgeActive([fromId, toId]);
+          const pathId = `nedge-${fromId}-${toId}`;
+          // gentle curve via control point offset perpendicular to the segment
+          const mx = (a.x + b.x) / 2;
+          const my = (a.y + b.y) / 2;
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const len = Math.hypot(dx, dy) || 1;
+          const cx = mx + (-dy / len) * 14;
+          const cy = my + (dx / len) * 14;
+          const d = `M ${a.x},${a.y} Q ${cx},${cy} ${b.x},${b.y}`;
+          return (
+            <g key={i}>
+              <path
+                id={pathId}
+                d={d}
+                stroke={activeE ? "rgba(167,139,250,0.95)" : "url(#net-line)"}
+                strokeWidth={activeE ? 1.4 : 0.9}
+                strokeDasharray={activeE ? "0" : "3 5"}
+                fill="none"
+                style={{ transition: "stroke 0.25s ease, stroke-width 0.25s ease" }}
+              >
+                {!activeE && (
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    values="0;-16"
+                    dur="3s"
+                    repeatCount="indefinite"
+                    begin={`${i * 0.18}s`}
+                  />
+                )}
+              </path>
+              <circle r="1.8" fill="#a78bfa" opacity={activeE ? 1 : 0.85}>
+                <animateMotion dur={`${3 + (i % 3) * 0.4}s`} repeatCount="indefinite" begin={`${(i * 0.3) % 2}s`}>
+                  <mpath href={`#${pathId}`} />
+                </animateMotion>
+                <animate attributeName="opacity" values="0;1;1;0" dur={`${3 + (i % 3) * 0.4}s`} repeatCount="indefinite" begin={`${(i * 0.3) % 2}s`} />
+              </circle>
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* center pulse */}
+      <div
+        aria-hidden
+        className="absolute pointer-events-none"
+        style={{
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%,-50%)",
+        }}
+      >
+        <span
+          className="block rounded-full"
+          style={{
+            width: 84,
+            height: 84,
+            background:
+              "radial-gradient(circle, rgba(139,92,246,0.18), transparent 65%)",
+            filter: "blur(10px)",
+            animation: "pulseRing 3.4s ease-in-out infinite",
+          }}
+        />
+      </div>
+
+      {/* nodes */}
+      {nodes.map((n) => {
+        const isActive = active === n.id;
+        const intent = n.center ? "primary" : "default";
+        return (
+          <button
+            key={n.id}
+            type="button"
+            onMouseEnter={() => setActive(n.id)}
+            onMouseLeave={() => setActive(null)}
+            onFocus={() => setActive(n.id)}
+            onBlur={() => setActive(null)}
+            className="absolute group focus:outline-none"
+            style={{
+              left: `${(n.x / 400) * 100}%`,
+              top: `${(n.y / 400) * 100}%`,
+              transform: "translate(-50%, -50%)",
+              transition: "filter 0.25s ease",
+              filter: isActive ? "drop-shadow(0 0 10px rgba(167,139,250,0.45))" : "none",
+            }}
+          >
+            <Node
+              label={n.label}
+              intent={n.center ? "primary" : isActive ? "accent" : intent}
+              emphasis={n.center || isActive}
+            />
+          </button>
+        );
+      })}
+
+      {/* hover tooltip */}
+      {activeNode?.desc && (
+        <div
+          className="absolute pointer-events-none z-10"
+          style={{
+            left: `${(activeNode.x / 400) * 100}%`,
+            top: `${(activeNode.y / 400) * 100 + 6}%`,
+            transform: "translate(-50%, 0)",
+          }}
+        >
+          <div
+            className="mt-2 px-2.5 py-1.5 rounded-md text-[10.5px] leading-snug max-w-[180px] text-center text-[#cbd5e1]"
+            style={{
+              background: "rgba(20,18,38,0.92)",
+              border: "1px solid rgba(167,139,250,0.32)",
+              boxShadow: "0 8px 22px -10px rgba(0,0,0,0.6)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            {activeNode.desc}
+          </div>
+        </div>
+      )}
+
+      <style>{`@keyframes pulseRing { 0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1) } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.18) } }`}</style>
     </div>
   );
 }
@@ -290,16 +454,44 @@ const PROJECTS = [
     github: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
     live: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
     arch: {
-      type: "flow",
+      type: "network",
+      title: "RAG Knowledge Pipeline",
+      subtitle:
+        "Retrieval-Augmented Generation system for educational content search and question answering.",
       nodes: [
-        "Video",
-        "Whisper",
-        "Transcript Processing",
-        "Embeddings",
-        "Vector Search",
-        "Retriever",
-        "LLM",
-        "Response",
+        // Center
+        { id: "engine", label: "Knowledge Engine", x: 200, y: 200, center: true, desc: "Central orchestrator coordinating ingestion, retrieval and generation." },
+        // Left column — ingestion
+        { id: "video", label: "Video Sources", x: 60, y: 80, desc: "Educational video inputs ingested into the pipeline." },
+        { id: "whisper", label: "Whisper STT", x: 50, y: 200, desc: "Speech-to-text transcription with Whisper." },
+        { id: "transcript", label: "Transcript Processing", x: 70, y: 320, desc: "Cleans, chunks and timestamps transcripts." },
+        // Top row — embedding + storage
+        { id: "embed", label: "Embedding Service", x: 150, y: 50, desc: "Generates dense vector embeddings for each chunk." },
+        { id: "vector", label: "Vector Database", x: 260, y: 50, desc: "Stores embeddings for fast similarity search." },
+        // Right column — retrieval
+        { id: "retriever", label: "Retriever", x: 340, y: 140, desc: "Performs semantic + timestamp-aware retrieval." },
+        { id: "context", label: "Context Builder", x: 350, y: 260, desc: "Assembles top-k chunks into prompt context." },
+        // Bottom row — generation
+        { id: "llm", label: "LLM", x: 150, y: 360, desc: "Reasoning model grounded on retrieved context." },
+        { id: "response", label: "Response Generator", x: 260, y: 360, desc: "Formats final answer with citations + timestamps." },
+      ],
+      edges: [
+        // ingestion → engine
+        ["video", "whisper"],
+        ["whisper", "transcript"],
+        ["transcript", "engine"],
+        // engine → indexing
+        ["engine", "embed"],
+        ["embed", "vector"],
+        ["vector", "engine"],
+        // engine → retrieval
+        ["engine", "retriever"],
+        ["retriever", "context"],
+        ["context", "engine"],
+        // engine → generation
+        ["engine", "llm"],
+        ["llm", "response"],
+        ["response", "engine"],
       ],
     },
   },
