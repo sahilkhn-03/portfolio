@@ -59,45 +59,6 @@ export default function About() {
                 engineering practices, and real-world usability.
               </motion.p>
             </div>
-
-            <motion.div
-              {...fade(0.2)}
-              className="mt-10 flex items-start gap-10 sm:gap-14"
-              data-testid="about-stats"
-            >
-              <div>
-                <div
-                  className="font-display text-white leading-none tracking-[-0.04em]"
-                  style={{ fontWeight: 700, fontSize: "clamp(1.9rem, 3vw, 2.4rem)" }}
-                >
-                  5<span style={{ color: "#a78bfa" }}>+</span>
-                </div>
-                <div className="mt-2 text-[12px] text-[#94a3b8] tracking-[0.04em]">
-                  Projects shipped
-                </div>
-              </div>
-
-              <div
-                aria-hidden
-                className="self-stretch w-px"
-                style={{
-                  background:
-                    "linear-gradient(180deg, transparent, rgba(255,255,255,0.10), transparent)",
-                }}
-              />
-
-              <div>
-                <div
-                  className="font-display text-white leading-none tracking-[-0.04em]"
-                  style={{ fontWeight: 700, fontSize: "clamp(1.9rem, 3vw, 2.4rem)" }}
-                >
-                  3<span style={{ color: "#a78bfa" }}>+</span>
-                </div>
-                <div className="mt-2 text-[12px] text-[#94a3b8] tracking-[0.04em]">
-                  Years building
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>
