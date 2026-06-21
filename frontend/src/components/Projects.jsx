@@ -358,9 +358,9 @@ const ICONS = {
 
 function ServiceNode({ node, isActive }) {
   const primary = !!node.center;
-  const size = primary ? "w-[58px] h-[58px]" : "w-12 h-12";
+  const size = primary ? "w-[52px] h-[52px]" : "w-[42px] h-[42px]";
   return (
-    <div className="flex flex-col items-center gap-1.5 select-none">
+    <div className="flex flex-col items-center gap-1 select-none">
       <div
         className={`relative ${size} rounded-full flex items-center justify-center transition-all duration-300`}
         style={{
@@ -424,7 +424,7 @@ function NetworkDiagram({ arch }) {
   const activeNode = active ? nodeById[active] : null;
 
   return (
-    <div className="relative w-full max-w-md mx-auto h-[400px] sm:h-[420px]">
+    <div className="relative w-full max-w-md mx-auto h-[340px] sm:h-[360px]">
       <svg
         aria-hidden
         viewBox="0 0 400 400"
@@ -561,6 +561,13 @@ const PROJECTS = [
     ],
     github: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
     live: "https://github.com/sahilkhn-03/Rag-Ai-Agent",
+    overview: {
+      title: "Retrieval-Augmented Learning Platform",
+      paragraphs: [
+        "An AI-powered educational search system that transforms video lectures into a semantic knowledge layer. By combining Whisper transcription, vector retrieval, and LLM-based reasoning, the platform enables students to instantly locate concepts, explanations, and timestamps through natural language interaction.",
+        "Built with a production-style RAG pipeline integrating transcript extraction, embedding generation, semantic retrieval, and contextual answer synthesis.",
+      ],
+    },
     arch: {
       type: "network",
       title: "Retrieval-Augmented Generation System",
@@ -849,6 +856,49 @@ function ProjectShowcase({ p, index }) {
             <p className="mt-2.5 text-[14.5px] leading-[1.65] text-[#94a3b8] max-w-xl">
               {p.tagline}
             </p>
+
+            {p.overview && (
+              <div
+                className="mt-5 rounded-2xl p-5 sm:p-5 max-w-xl relative overflow-hidden"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(20,20,30,0.55) 0%, rgba(10,10,18,0.7) 100%)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.04)",
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(60% 50% at 0% 0%, rgba(99,102,241,0.10), transparent 70%)",
+                  }}
+                />
+                <div className="relative">
+                  <div className="font-mono text-[9.5px] tracking-[0.22em] uppercase text-[#a78bfa] mb-2">
+                    Overview
+                  </div>
+                  <div
+                    className="font-display text-white tracking-[-0.02em] leading-[1.2] text-[16px] sm:text-[17px]"
+                    style={{ fontWeight: 700 }}
+                  >
+                    {p.overview.title}
+                  </div>
+                  <div className="mt-3 space-y-2.5">
+                    {p.overview.paragraphs.map((para, i) => (
+                      <p
+                        key={i}
+                        className="text-[13.5px] leading-[1.7] text-[#cbd5e1]"
+                      >
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Chevron toggle */}
