@@ -350,23 +350,10 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-[clamp(1.9rem,4vw,2.8rem)] leading-[1.06] tracking-[-0.03em]"
+              className="font-display font-bold text-[clamp(1.9rem,4vw,2.8rem)] leading-[1.06] tracking-[-0.03em] text-white"
             >
-              <span className="text-grad-primary">Core </span>
-              <span className="font-serif-italic text-grad-indigo">Expertise</span>
-              <span className="text-grad-primary">.</span>
+              The Stack
             </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.05 }}
-              className="mt-4 text-[15px] leading-[1.7] text-[#94a3b8] max-w-xl"
-            >
-              Technologies, frameworks and tools I use to build production-ready
-              AI systems and software products.
-            </motion.p>
           </div>
         </div>
 
